@@ -4,6 +4,7 @@ import pymongo
 import json
 import requests
 import get24mined
+import time
 
 mongoClient = pymongo.MongoClient("127.0.0.1",27017)
 mongoDB = mongoClient.di
@@ -24,7 +25,8 @@ for i in miners_farm1:
     # print res
     temp = [int(j) for j in res["gpuTemperature"].strip("[]").split(",")]
     averageTemp = sum(temp) / float(len(temp))
-    rs = {"username": res["username"], "hash":(res["hashrate"]+res["hashrateC"])/1000.0, "temp":temp, "average_temp": averageTemp, "gpu_num":len(temp)}
+    boot_hour = (time.time() - float(res["bootTime"]))/3600
+    rs = {"boot_hour":boot_hour, "username": res["username"], "hash":(res["hashrate"]+res["hashrateC"])/1000.0, "temp":temp, "average_temp": averageTemp, "gpu_num":len(temp)}
     # print rs
     data1.append(rs)
   except Exception as e:
@@ -39,7 +41,8 @@ for i in miners_farm3:
     # print res
     temp = [int(j) for j in res["gpuTemperature"].strip("[]").split(",")]
     averageTemp = sum(temp) / float(len(temp))
-    rs = {"username": res["username"], "hash":(res["hashrate"]+res["hashrateC"])/1000.0, "temp":temp, "average_temp": averageTemp, "gpu_num":len(temp)}
+    boot_hour = (time.time() - float(res["bootTime"]))/3600
+    rs = {"boot_hour":boot_hour, "username": res["username"], "hash":(res["hashrate"]+res["hashrateC"])/1000.0, "temp":temp, "average_temp": averageTemp, "gpu_num":len(temp)}
     # print rs
     data2.append(rs)
   except Exception as e:
