@@ -16,7 +16,7 @@ def getDataAndInsert():
     data2 = json_response2["getuserworkers"]["data"]
     DB["eth"].insert({"data":[data]})
     DB["etc"].insert({"data":[data2]})
-    time.sleep(10)
+    time.sleep(60)
 
 if __name__ == "__main__":
   getDataAndInsert()  
